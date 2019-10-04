@@ -1,5 +1,5 @@
 import React from "react";
-import { FixtureBox } from "./FixtureBox";
+import { FixtureId } from "./FixtureBox";
 import { FixtureStateObject } from "../models/types";
 import styled from "styled-components";
 
@@ -7,7 +7,6 @@ const FixtureBoxesContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
 
   width: 110%;
   > * {
@@ -19,8 +18,7 @@ const FixtureBoxesContainer = styled.div`
     flex-grow: 1;
     margin: 0 4px;
     width: 96px;
-    height: 32px;
-    line-height: 32px;
+    border-radius: 0 0 8px 8px;
   }
 `;
 
@@ -33,7 +31,7 @@ export const TopBar = (props: TopBarProps) => {
   return (
     <FixtureBoxesContainer>
       {Object.values(fixtures).map((fixture, index) => (
-        <FixtureBox
+        <FixtureId
           id={fixture.id}
           color={fixture.color || "blue"}
           key={fixture.id}
