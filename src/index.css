@@ -1,14 +1,15 @@
-body {
+:root {
   margin: 0;
   font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-
   background-color: #000000;
-  /*border: 1px solid rgba(151, 151, 151, 0.3);*/
-  /*background-color: #212224;*/
-  /*background: radial-gradient(circle, #42b6f6 0%, rgba(66, 182, 246, 0) 100%);*/
+
+  /*  global custom properties */
+  --spacing: 8px;
+  --border-width: 1px;
+
+  --font-bold: 500;
 }

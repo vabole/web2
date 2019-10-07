@@ -1,7 +1,7 @@
 import React from "react";
 import { TopBar } from "./components/TopBar";
 import { initialState } from "./models/initialState";
-import { Fixture } from "./components/Fixture";
+import { FixtureCard } from "./components/FixtureCard";
 import { FixtureStateObject, NormalizedState } from "./models/types";
 
 const initialFixtures = (
@@ -16,13 +16,14 @@ const initialFixtures = (
 
 export const App = () => {
   const fixtures = initialFixtures(initialState);
+  console.log(fixtures)
   return (
     <div>
       {fixtures && (
         <>
           <TopBar fixtures={fixtures} />
           {fixtures.map(fixture => (
-            <Fixture fixture={fixture} key={fixture.id} />
+            <FixtureCard fixture={fixture} key={fixture.id} />
           ))}
         </>
       )}

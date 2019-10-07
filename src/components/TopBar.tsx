@@ -1,19 +1,20 @@
 import React from "react";
 import { FixtureStateObject } from "../models/types";
 import styled from "styled-components";
-import {FixtureId} from "./FixtureId";
+import { FixtureId } from "./FixtureId";
 
 const FixtureBoxesContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  margin-bottom: 32px;
 
   width: 110%;
   > * {
     color: white;
     text-align: center;
     vertical-align: middle;
-    font-weight: 500;
+    font-weight: var(--font-bold);
     font-size: 22px;
     flex-grow: 1;
     margin: 0 4px;
@@ -21,7 +22,6 @@ const FixtureBoxesContainer = styled.div`
     border-radius: 0 0 8px 8px;
   }
 `;
-
 
 type TopBarProps = {
   fixtures: FixtureStateObject[];
