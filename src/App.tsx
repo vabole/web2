@@ -1,19 +1,31 @@
 import React from "react";
 import { TopBar } from "./components/TopBar";
 import { initialState } from "./models/initialState";
-import {Fixture} from "./components/Fixture";
-import {FixtureStateObject} from "./models/types";
+import { Fixture } from "./components/Fixture";
+import { FixtureStateObject, NormalizedState } from "./models/types";
 
-const fixtures  = initialState.entities.fixtures  Object.values();
+const initialFixtures = (
+  initialState: NormalizedState
+): FixtureStateObject[] => {
+  const fixtures = initialState.entities.fixtures;
+  if (!fixtures) {
+    return [];
+  }
+  return Object.values(fixtures);
+};
+
 export const App = () => {
+  const fixtures = initialFixtures(initialState);
   return (
     <div>
-        {fixtures && (
+      {fixtures && (
         <>
           <TopBar fixtures={fixtures} />
-          {fixtures).map((fixture) => (<Fixture fixture={fixture} key={fixture.id}/>))}
+          {fixtures.map(fixture => (
+            <Fixture fixture={fixture} key={fixture.id} />
+          ))}
         </>
-      )
+      )}
     </div>
   );
 };

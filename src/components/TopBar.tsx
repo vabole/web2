@@ -1,7 +1,7 @@
 import React from "react";
-import { FixtureId } from "./FixtureBox";
 import { FixtureStateObject } from "../models/types";
 import styled from "styled-components";
+import {FixtureId} from "./FixtureId";
 
 const FixtureBoxesContainer = styled.div`
   display: flex;
@@ -22,15 +22,16 @@ const FixtureBoxesContainer = styled.div`
   }
 `;
 
+
 type TopBarProps = {
-  fixtures: { [id: string]: FixtureStateObject };
+  fixtures: FixtureStateObject[];
 };
 
 export const TopBar = (props: TopBarProps) => {
   const { fixtures } = props;
   return (
     <FixtureBoxesContainer>
-      {Object.values(fixtures).map((fixture, index) => (
+      {fixtures.map((fixture, index) => (
         <FixtureId
           id={fixture.id}
           color={fixture.color || "blue"}
