@@ -16,7 +16,7 @@ const initialFixtures = (
 
 export const App = () => {
   const fixtures = initialFixtures(initialState);
-  console.log(fixtures)
+  console.log(fixtures);
   return (
     <div>
       {fixtures && (
