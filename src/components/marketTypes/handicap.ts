@@ -1,4 +1,4 @@
-import { HEADER, LABEL, MarketInfoType, MarketRow, VALUE } from "./index";
+import { LABEL, MarketInfoType, MarketRow, VALUE } from "./index";
 import { converter, getHeaderRow } from "./converter";
 
 const MARKET_NAME = "Handicap";

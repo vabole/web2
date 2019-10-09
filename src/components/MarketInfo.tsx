@@ -4,27 +4,8 @@ import {
   getMarketData2,
   HEADER,
   MarketInfoElement,
-  MarketInfoType,
   VALUE
 } from "./marketTypes";
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Cell = styled.div`
-  min-width: calc(var(--spacing) * 7);
-  padding: 0 calc(var(--spacing) * 1);
-  line-height: calc(var(--spacing) * 5);
-  margin: 1px;
-`;
-
-const MarketInfoStyled = styled.div`
-  padding: calc(var(--spacing) * 2);
-  display: flex;
-  flex-direction: column;
-`;
 
 const MarketTable = styled.table`
   color: #c8c8c8;
