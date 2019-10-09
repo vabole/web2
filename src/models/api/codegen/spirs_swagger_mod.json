@@ -1,0 +1,1316 @@
+{
+    "basePath": "/api",
+    "definitions": {
+        "CategoryTreeElement": {
+            "properties": {
+                "categoryId": {
+                    "description": "Идентификатор категории (по ТЗ это тип категории/страна)",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "categoryName": {
+                    "description": "Название категории (по ТЗ это тип категории/страна)",
+                    "type": "string"
+                },
+                "color": {
+                    "description": "Цвет иконки вида спорта",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Количество спортивных мероприятий для выбранного элемента",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "imageUrl": {
+                    "description": "Иконка категории (страны)",
+                    "type": "string"
+                },
+                "ordinal": {
+                    "description": "Порядок следования (возможно стоит не передавать этот параметр, а сразу упорядочивать на сервере). Если 0 - в конце списка.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "sportId": {
+                    "description": "Идентификатор вида спорта",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "sportName": {
+                    "description": "Название вида спорта",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "categoryId",
+                "categoryName",
+                "ordinal",
+                "sportId",
+                "sportName"
+            ],
+            "title": "CategoryTreeElement",
+            "type": "object"
+        },
+        "CompetitorElement": {
+            "properties": {
+                "id": {
+                    "description": "Идентификатор соперника",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Имя-название соперника",
+                    "type": "string"
+                }
+            },
+            "required": ["id", "name"],
+            "title": "CompetitorElement",
+            "type": "object"
+        },
+        "CouponForm": {
+            "properties": {
+                "playerId": {
+                    "description": "Id клиента",
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "steps": {
+                    "description": "Шаги",
+                    "items": {
+                        "$ref": "#/definitions/CouponStepForm"
+                    },
+                    "type": "array"
+                }
+            },
+            "title": "CouponForm",
+            "type": "object"
+        },
+        "CouponStepForm": {
+            "properties": {
+                "events": {
+                    "description": "Шаги",
+                    "items": {
+                        "$ref": "#/definitions/EventForm"
+                    },
+                    "type": "array"
+                },
+                "m": {
+                    "description": "Количество событий участвующих в расчете пари \"Экспресс\" (присылать если type in (EXPRESS, SYSTEM)",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "n": {
+                    "description": "Количество полученных Экспрессов (присылать если type in (EXPRESS, SYSTEM)",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "odds": {
+                    "description": "Коэффициент шага(присылать если type in (EXPRESS, SYSTEM)",
+                    "type": "number"
+                },
+                "rate": {
+                    "description": "Ставка(присылать если type in (EXPRESS, SYSTEM)",
+                    "type": "number"
+                },
+                "type": {
+                    "description": "Тип купона",
+                    "enum": ["ORDINAR", "EXPRESS", "SYSTEM"],
+                    "type": "string"
+                }
+            },
+            "title": "CouponStepForm",
+            "type": "object"
+        },
+        "EventForm": {
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "odds": {
+                    "description": "Коэффициент шага",
+                    "type": "number"
+                },
+                "rate": {
+                    "description": "Ставка(только для Ordinar)",
+                    "type": "number"
+                },
+                "selectionId": {
+                    "description": "Идентификатор события",
+                    "format": "int64",
+                    "type": "integer"
+                }
+            },
+            "title": "EventForm",
+            "type": "object"
+        },
+        "FixtureElement": {
+            "properties": {
+                "categoryId": {
+                    "description": "Идентификатор категории (по ТЗ это тип категории/страна)",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "categoryName": {
+                    "description": "Название категории (по ТЗ это тип категории/страна)",
+                    "type": "string"
+                },
+                "color": {
+                    "description": "Цвет иконки вида спорта",
+                    "type": "string"
+                },
+                "competitionName": {
+                    "description": "Название спортивного мероприятия",
+                    "type": "string"
+                },
+                "competitor1": {
+                    "$ref": "#/definitions/CompetitorElement",
+                    "description": "Соперник, выступающий \"дома\""
+                },
+                "competitor2": {
+                    "$ref": "#/definitions/CompetitorElement",
+                    "description": "Соперник, выступающий \"в гостях\""
+                },
+                "count": {
+                    "description": "Количество спортивных мероприятий для выбранного элемента",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "fixtureId": {
+                    "description": "Идентификатор спортивного мероприятия",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "imageUrl": {
+                    "description": "Иконка категории (страны)",
+                    "type": "string"
+                },
+                "periods": {
+                    "description": "Список периодов спортивного мероприятия (событий)",
+                    "items": {
+                        "$ref": "#/definitions/PeriodElement"
+                    },
+                    "type": "array"
+                },
+                "markets": {
+                    "description": "Список маркетов спортивного мероприятия (событий)",
+                    "items": {
+                        "$ref": "#/definitions/MarketElement"
+                    },
+                    "type": "array"
+                },
+                "ordinal": {
+                    "description": "Порядок следования (возможно стоит не передавать этот параметр, а сразу упорядочивать на сервере). Если 0 - в конце списка.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "roundName": {
+                    "description": "Этап турнира",
+                    "type": "string"
+                },
+                "sportId": {
+                    "description": "Идентификатор вида спорта",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "sportName": {
+                    "description": "Название вида спорта",
+                    "type": "string"
+                },
+                "startTime": {
+                    "description": "Планируемая дата и время начала мероприятия",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "statistics": {
+                    "$ref": "#/definitions/MatchStatsDto",
+                    "description": "Результаты матча"
+                },
+                "tournamentId": {
+                    "description": "Идентификатор турнира (по ТЗ это категория)",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "tournamentName": {
+                    "description": "Название турнира (по ТЗ это категория)",
+                    "type": "string"
+                },
+                "top": {
+                    "description": "Признак рейтингового спортивного мероприятия",
+                    "name": "top",
+                    "type": "boolean"
+                },
+                "videoUrl": {
+                    "description": "URL видео трансляции, если она есть",
+                    "name": "videoUrl",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Статус маркета (события) TODO: вынести как общий enum",
+                    "enum": [
+                        "NOT_STARTED",
+                        "LIVE",
+                        "SUSPENDED",
+                        "ENDED",
+                        "FINISHED",
+                        "CANCELLED",
+                        "ABANDONED",
+                        "DELAYED",
+                        "UNKNOWN"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "categoryId",
+                "categoryName",
+                "competitor1",
+                "competitor2",
+                "fixtureId",
+                "ordinal",
+                "sportId",
+                "sportName",
+                "startTime",
+                "tournamentId",
+                "tournamentName"
+            ],
+            "title": "FixtureElement",
+            "type": "object"
+        },
+        "PeriodElement": {
+            "properties": {
+                "id": {
+                    "description": "Идентификатор периода мероприятия (0 - мероприятие в целом)",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Название периода мероприятия",
+                    "type": "string"
+                }
+            },
+            "required": ["id", "name"],
+            "title": "PeriodElement",
+            "type": "object"
+        },
+        "MarketElement": {
+            "properties": {
+                "id": {
+                    "description": "Идентификатор маркета (события)",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Название маркета (события)",
+                    "type": "string"
+                },
+                "selections": {
+                    "description": "Список вариантов исхода события",
+                    "items": {
+                        "$ref": "#/definitions/SelectionElement"
+                    },
+                    "type": "array"
+                },
+                "status": {
+                    "description": "Статус маркета (события)",
+                    "enum": [
+                        "ACTIVE",
+                        "SUSPENDED",
+                        "DEACTIVATED",
+                        "SETTLED",
+                        "CANCELLED",
+                        "HANDED_OVER"
+                    ],
+                    "type": "string"
+                },
+                "ordinal": {
+                    "description": "Порядок следования. Если 0 - в конце списка.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "periodId": {
+                    "description": "Идентификатор периода мероприятия (см PeriodElement)",
+                    "format": "int64",
+                    "type": "integer"
+                }
+            },
+            "required": ["id", "name", "selections", "status"],
+            "title": "MarketElement",
+            "type": "object"
+        },
+        "MatchStatsDto": {
+            "properties": {
+                "matchState": {
+                    "description": "Текущее состояние матча",
+                    "type": "string"
+                },
+                "periodEndTime": {
+                    "description": "Время окончания текущего тайма/периода",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "periodScores": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Score"
+                    },
+                    "description": "Счет в соревновании по периодам/таймам/сетам и т.д.",
+                    "type": "object"
+                },
+                "redCards": {
+                    "$ref": "#/definitions/Score",
+                    "description": "Количество красных карточек"
+                },
+                "score": {
+                    "$ref": "#/definitions/Score",
+                    "description": "Счет в матче"
+                },
+                "winner": {
+                    "description": "Победитель соревования",
+                    "type": "string"
+                },
+                "ylwCards": {
+                    "$ref": "#/definitions/Score",
+                    "description": "Количество желтых карточек"
+                }
+            },
+            "title": "MatchStatsDto",
+            "type": "object"
+        },
+        "PlayerModel": {
+            "properties": {
+                "balance": {
+                    "description": "Баланс",
+                    "type": "number"
+                },
+                "email": {
+                    "description": "Email",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Идентификатор пользователя",
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "isNew": {
+                    "description": "Является ли данный пользователь новым",
+                    "type": "boolean"
+                },
+                "maxRate": {
+                    "description": "Максимальный размер шага",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "phone": {
+                    "description": "Телефон",
+                    "type": "string"
+                }
+            },
+            "title": "PlayerModel",
+            "type": "object"
+        },
+        "Score": {
+            "properties": {
+                "competitor1": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "competitor2": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "title": "Score",
+            "type": "object"
+        },
+        "SelectionElement": {
+            "properties": {
+                "id": {
+                    "description": "Идентификатор варианта исхода события",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "locked": {
+                    "description": "Признак блокировки исхода события, в случае отсутствия - не заблокирован",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "Название варианта исхода события",
+                    "type": "string"
+                },
+                "odds": {
+                    "description": "Коэффициент варианта исхода события",
+                    "type": "number"
+                },
+                "oddsDirection": {
+                    "description": "Направление изменения коэффициента, [INCREASED - повышение, DECREASED- понижение, NOT_CHANGED - без изменений]",
+                    "enum": ["INCREASED", "DECREASED", "NOT_CHANGED"],
+                    "type": "string"
+                }
+            },
+            "required": ["id", "name", "odds", "oddsDirection"],
+            "title": "SelectionElement",
+            "type": "object"
+        },
+        "SportTreeElement": {
+            "properties": {
+                "color": {
+                    "description": "Цвет иконки вида спорта",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Количество спортивных мероприятий для выбранного элемента",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "imageUrl": {
+                    "description": "Иконка вида спорта",
+                    "type": "string"
+                },
+                "ordinal": {
+                    "description": "Порядок следования (возможно стоит не передавать этот параметр, а сразу упорядочивать на сервере). Если 0 - в конце списка.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "sportId": {
+                    "description": "Идентификатор вида спорта",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "sportName": {
+                    "description": "Название вида спорта",
+                    "type": "string"
+                }
+            },
+            "required": ["ordinal", "sportId", "sportName"],
+            "title": "SportTreeElement",
+            "type": "object"
+        },
+        "StepForm": {
+            "properties": {
+                "date": {
+                    "description": "Дата совершения ставки",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "fixture": {
+                    "$ref": "#/definitions/FixtureElement",
+                    "description": "Информация о матче"
+                },
+                "id": {
+                    "description": "Идентификатор шага",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "market": {
+                    "description": "Название маркета",
+                    "type": "string"
+                },
+                "odds": {
+                    "description": "Коэффициент шага",
+                    "type": "number"
+                },
+                "rate": {
+                    "description": "Ставка",
+                    "type": "number"
+                },
+                "selection": {
+                    "description": "Название события",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Статус шага, [WAITING - Ожидание результата, REFUND - Возврат ставки, CANCELED - отмена ставки, IN_PLAY - В Игре (если не расчитана ставка, а матч LIVE), CALCULATED - расчитана, NO_CALCULATED - не расчитана]",
+                    "enum": [
+                        "WAITING",
+                        "REFUND",
+                        "CANCELED",
+                        "IN_PLAY",
+                        "CALCULATED",
+                        "NO_CALCULATED"
+                    ],
+                    "type": "string"
+                },
+                "steps": {
+                    "description": "Шаги, которые входят мультишаг, [List of StepForm]",
+                    "items": {
+                        "$ref": "#/definitions/StepForm"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "Тип шага",
+                    "enum": ["ORDINAR", "EXPRESS", "SYSTEM"],
+                    "type": "string"
+                },
+                "typeName": {
+                    "description": "Тип шага(перевод)",
+                    "type": "string"
+                },
+                "win": {
+                    "description": "Результат",
+                    "type": "number"
+                },
+                "winning": {
+                    "type": "boolean"
+                }
+            },
+            "title": "StepForm",
+            "type": "object"
+        },
+        "TournamentTreeElement": {
+            "properties": {
+                "categoryId": {
+                    "description": "Идентификатор категории (по ТЗ это тип категории/страна)",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "categoryName": {
+                    "description": "Название категории (по ТЗ это тип категории/страна)",
+                    "type": "string"
+                },
+                "color": {
+                    "description": "Цвет иконки вида спорта",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Количество спортивных мероприятий для выбранного элемента",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "imageUrl": {
+                    "description": "Иконка категории (страны)",
+                    "type": "string"
+                },
+                "ordinal": {
+                    "description": "Порядок следования (возможно стоит не передавать этот параметр, а сразу упорядочивать на сервере). Если 0 - в конце списка.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "sportId": {
+                    "description": "Идентификатор вида спорта",
+                    "example": 1,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "sportName": {
+                    "description": "Название вида спорта",
+                    "type": "string"
+                },
+                "tournamentId": {
+                    "description": "Идентификатор турнира (по ТЗ это категория)",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "tournamentName": {
+                    "description": "Название турнира (по ТЗ это категория)",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "categoryName",
+                "ordinal",
+                "sportId",
+                "sportName",
+                "tournamentId",
+                "tournamentName"
+            ],
+            "title": "TournamentTreeElement",
+            "type": "object"
+        }
+    },
+    "host": "10.5.0.178:9999",
+    "info": {
+        "contact": {},
+        "description": "Api Documentation",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0"
+        },
+        "termsOfService": "urn:tos",
+        "title": "Api Documentation",
+        "version": "1.0"
+    },
+    "paths": {
+        "/v1/categories": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getCategoryListUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Статус спортивного события",
+                        "enum": ["LINE", "LIVE", "FINISHED"],
+                        "in": "query",
+                        "name": "mode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Идентификатор вида спорта",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "sportId",
+                        "required": true,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "in": "query",
+                        "name": "startDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Начало временного отрезка для выборки"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Окончание временного отрезка для выборки"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/CategoryTreeElement"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение дерева категорий спортивных мероприятий для указанного вида спорта",
+                "tags": ["line-controller"]
+            }
+        },
+        "/v1/favorites": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getFavoritesUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "default": "9c82a018-8c42-11e9-bc42-526af7764f64",
+                        "description": "Идентификатор пользователя",
+                        "format": "uuid",
+                        "in": "query",
+                        "name": "playerId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/FixtureElement"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение списка мероприятий, добавленных в избранное",
+                "tags": ["favorites-controller"]
+            }
+        },
+        "/v1/favorites/add": {
+            "post": {
+                "consumes": ["application/json"],
+                "deprecated": false,
+                "operationId": "addUsingPOST",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Идентификатор мероприятия",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "fixtureId",
+                        "required": true,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "default": "9c82a018-8c42-11e9-bc42-526af7764f64",
+                        "description": "Идентификатор пользователя",
+                        "format": "uuid",
+                        "in": "query",
+                        "name": "playerId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Добавить мероприятие в избранное",
+                "tags": ["favorites-controller"]
+            }
+        },
+        "/v1/favorites/delete": {
+            "post": {
+                "consumes": ["application/json"],
+                "deprecated": false,
+                "operationId": "deleteUsingPOST",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Идентификатор мероприятия",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "fixtureId",
+                        "required": true,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "default": "9c82a018-8c42-11e9-bc42-526af7764f64",
+                        "description": "Идентификатор пользователя",
+                        "format": "uuid",
+                        "in": "query",
+                        "name": "playerId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Удалить мероприятие из избранного",
+                "tags": ["favorites-controller"]
+            }
+        },
+        "/v1/fixture": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getFixtureUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Статус спортивного события",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/FixtureElement"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение списка спортивных мероприятий для указанного турнира",
+                "tags": ["line-controller"]
+            }
+        },
+        "/v1/fixtures": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getFixturesUsingGET",
+                "parameters": [
+                    {
+                        "description": "Идентификатор категории",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "categoryId",
+                        "required": false,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "description": "Идентификатор вида спорта",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "sportId",
+                        "required": false,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "description": "Статус спортивного мероприятия",
+                        "enum": [
+                            "NOT_STARTED",
+                            "LIVE",
+                            "SUSPENDED",
+                            "ENDED",
+                            "FINISHED",
+                            "CANCELLED",
+                            "ABANDONED",
+                            "DELAYED",
+                            "UNKNOWN"
+                        ],
+                        "in": "query",
+                        "name": "status",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Признак рейтингового спортивного мероприятия",
+                        "in": "query",
+                        "name": "top",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "description": "Идентификатор турнира",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "tournamentId",
+                        "required": false,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "description": "Признак наличия видео у спортивного мероприятия",
+                        "in": "query",
+                        "name": "video",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "name": "startDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Начало временного отрезка для выборки"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Окончание временного отрезка для выборки"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/FixtureElement"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение списка спортивных мероприятий для указанного турнира",
+                "tags": ["line-controller"]
+            }
+        },
+        "/v1/playerInfo": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getPlayerInfoUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "default": "9c82a018-8c42-11e9-bc42-526af7764f64",
+                        "description": "Идентификатор пользователя",
+                        "format": "uuid",
+                        "in": "query",
+                        "name": "playerId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PlayerModel"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение информации по пользователю(баланс и тд)",
+                "tags": ["player-controller"]
+            }
+        },
+        "/v1/sports": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getSportListUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Статус спортивного события",
+                        "enum": ["LINE", "LIVE", "FINISHED"],
+                        "in": "query",
+                        "name": "mode",
+                        "required": true,
+                        "type": "string"
+                    },
+
+                    {
+                        "in": "query",
+                        "name": "startDate",
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endDate",
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/SportTreeElement"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение дерева видов спорта спортивных мероприятий",
+                "tags": ["line-controller"]
+            }
+        },
+        "/v1/steps": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getStepsUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "default": "9c82a018-8c42-11e9-bc42-526af7764f64",
+                        "description": "Идентификатор пользователя",
+                        "format": "uuid",
+                        "in": "query",
+                        "name": "playerId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Статус шага(если не указывать - пришлет все)",
+                        "enum": [
+                            "WAITING",
+                            "REFUND",
+                            "CANCELED",
+                            "IN_PLAY",
+                            "CALCULATED",
+                            "NO_CALCULATED"
+                        ],
+                        "in": "query",
+                        "name": "status",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "startDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Начало временного отрезка для выборки"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Окончание временного отрезка для выборки"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/StepForm"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Информация по совершенным шагам",
+                "tags": ["step-controller"]
+            }
+        },
+        "/v1/steps/save-coupon": {
+            "post": {
+                "consumes": ["application/json"],
+                "deprecated": false,
+                "operationId": "saveCouponUsingPOST",
+                "parameters": [
+                    {
+                        "description": "couponForm",
+                        "in": "body",
+                        "name": "couponForm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CouponForm"
+                        }
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Сохранение купона",
+                "tags": ["step-controller"]
+            }
+        },
+        "/v1/steps/update-coupon": {
+            "post": {
+                "consumes": ["application/json"],
+                "deprecated": false,
+                "operationId": "updateCouponUsingPOST",
+                "parameters": [
+                    {
+                        "description": "couponForm",
+                        "in": "body",
+                        "name": "couponForm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CouponForm"
+                        }
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CouponForm"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение обновленных коэффициентов и статусов по маркетам, который еще не сохранен клиентом",
+                "tags": ["step-controller"]
+            }
+        },
+        "/v1/tournaments": {
+            "get": {
+                "deprecated": false,
+                "operationId": "getTournamentListUsingGET",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Идентификатор категории",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "categoryId",
+                        "required": true,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Статус спортивного события",
+                        "enum": ["LINE", "LIVE", "FINISHED"],
+                        "in": "query",
+                        "name": "mode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "description": "Идентификатор вида спорта",
+                        "format": "int64",
+                        "in": "query",
+                        "name": "sportId",
+                        "required": true,
+                        "type": "integer",
+                        "x-example": 1
+                    },
+                    {
+                        "in": "query",
+                        "name": "startDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Начало временного отрезка для выборки"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endDate",
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Окончание временного отрезка для выборки"
+                    }
+                ],
+                "produces": ["*/*"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/TournamentTreeElement"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Получение дерева турниров спортивных мероприятий для указанных вида спорта и категории",
+                "tags": ["line-controller"]
+            }
+        }
+    },
+    "swagger": "2.0",
+    "tags": [
+        {
+            "description": "Избранное",
+            "name": "favorites-controller"
+        },
+        {
+            "description": "Линия",
+            "name": "line-controller"
+        },
+        {
+            "description": "Информация о клиенте",
+            "name": "player-controller"
+        },
+        {
+            "description": "Совершение шагов / история шагов",
+            "name": "step-controller"
+        }
+    ]
+}
