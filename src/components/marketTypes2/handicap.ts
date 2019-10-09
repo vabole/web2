@@ -1,4 +1,4 @@
-import { MarketInfoType, MarketRow } from "./index";
+import { HEADER, LABEL, MarketInfoType, MarketRow, VALUE } from "./index";
 import { converter } from "./converter";
 
 const MARKET_NAME = "Handicap";
@@ -9,8 +9,8 @@ const extractLabel = (selection: Safl.SelectionElement): string =>
     .slice(1, -1);
 
 const labelAndSelection = (selection: Safl.SelectionElement) => [
-  converter(extractLabel(selection), "label"),
-  converter(selection.name, "selection")
+  converter(extractLabel(selection), LABEL),
+  converter(String(selection.odds), VALUE)
 ];
 
 export const handicap = (market: Safl.MarketElement): MarketInfoType | null => {
@@ -23,15 +23,17 @@ export const handicap = (market: Safl.MarketElement): MarketInfoType | null => {
   const selection1 = sortedSelections[1];
   const selection2 = sortedSelections[sortedSelections.length - 2];
 
-  const header: MarketRow = ["Фора", "1", "Фора", "2"].map(value =>
-    converter(value, "header")
-  );
+  const headerRow: MarketRow = {
+    cells: ["Фора", "1", "Фора", "2"].map(value => converter(value, HEADER)),
+    type: HEADER
+  };
+  const valuesRow: MarketRow = {
+    cells: labelAndSelection(selection1).concat(labelAndSelection(selection2)),
+    type: VALUE
+  };
 
   if (selection1 && selection2) {
-    return [
-      header,
-      labelAndSelection(selection1).concat(labelAndSelection(selection2))
-    ];
+    return [headerRow, valuesRow];
   }
   return null;
 };

@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { MarketInfoType } from "./marketTypes2";
+import {
+  HEADER,
+  MarketInfoElement,
+  MarketInfoType,
+  VALUE
+} from "./marketTypes2";
 
 const Row = styled.div`
   //min-width: calc(var(--spacing) * 7);
@@ -24,20 +29,68 @@ const MarketInfoStyled = styled.div`
   flex-direction: column;
 `;
 
+const MarketTable = styled.table``;
+const MarketTHead = styled.thead``;
+const MarketTBody = styled.tbody``;
+
+const MarketTR = styled.tr``;
+const MarketTH = styled.th``;
+const LabelCell = styled.td``;
+const ValueCell = styled.td``;
+
+type MarketTableCellProps = {
+  cell: MarketInfoElement;
+};
+const MarketTableCell = (props: MarketTableCellProps) => {
+  const { cell } = props;
+  switch (cell.type) {
+    case "HEADER":
+      return <MarketTH>{cell.label}</MarketTH>;
+    case "LABEL":
+      return <LabelCell>{cell.label}</LabelCell>;
+    case "VALUE":
+      return <MarketTR>{cell.label}</MarketTR>;
+  }
+};
+
+/**
+ * Компонент отображающий таблицу отдельного маркета.
+ *
+ * @param marketInfo - массив из элементов MarketRow
+ */
 type MarketInfoProps = {
   marketInfo: MarketInfoType;
 };
 export const MarketInfo = (props: MarketInfoProps) => {
   const { marketInfo } = props;
+  if (marketInfo.length === 0) {
+    return null;
+  }
+  console.log(marketInfo);
   return (
-    <MarketInfoStyled>
-      {marketInfo.map(row => (
-        <Row className="row">
-          {row.map(cell => (
-            <Cell className="cell">{cell.label}</Cell>
+    <MarketTable>
+      <MarketTHead>
+        {marketInfo
+          .filter(row => row.type === HEADER)
+          .map(row => (
+            <MarketTR>
+              {row.cells.map(th => (
+                <MarketTableCell cell={th} />
+              ))}
+            </MarketTR>
           ))}
-        </Row>
-      ))}
-    </MarketInfoStyled>
+      </MarketTHead>
+      <MarketTBody>
+        {marketInfo
+          .filter(row => row.type === VALUE)
+          .map(row => (
+            <MarketTR>
+              {row.cells.map(tr => (
+                <MarketTableCell cell={tr} />
+              ))}
+            </MarketTR>
+          ))}
+      </MarketTBody>
+    </MarketTable>
   );
 };

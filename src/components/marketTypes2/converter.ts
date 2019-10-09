@@ -1,19 +1,24 @@
-import { Header, Label, SelectionType } from "./index";
+import {
+  CellTypeName,
+  HEADER,
+  Header,
+  LABEL,
+  Label,
+  VALUE,
+  SelectionType
+} from "./index";
 
-export const converter = (
-  label: string,
-  type: "label" | "header" | "selection"
-) => {
+export const converter = (label: string, type: CellTypeName) => {
   const rv = {
     label,
     type
   };
   switch (type) {
-    case "header":
+    case HEADER:
       return rv as Header;
-    case "label":
+    case LABEL:
       return rv as Label;
-    case "selection":
+    case VALUE:
       return rv as SelectionType;
     default:
       throw new Error(`invalid type  ${type}`);
