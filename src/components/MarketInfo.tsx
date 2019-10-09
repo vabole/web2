@@ -5,12 +5,9 @@ import {
   MarketInfoElement,
   MarketInfoType,
   VALUE
-} from "./marketTypes2";
+} from "./marketTypes";
 
 const Row = styled.div`
-  //min-width: calc(var(--spacing) * 7);
-  //padding: 0 calc(var(--spacing) * 1);
-  //line-height: calc(var(--spacing) * 5);
   display: flex;
   flex-direction: row;
 `;
