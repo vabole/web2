@@ -16,7 +16,6 @@ const Row = styled.div`
 `;
 
 const Cell = styled.div`
-  background-color: #292a2c;
   min-width: calc(var(--spacing) * 7);
   padding: 0 calc(var(--spacing) * 1);
   line-height: calc(var(--spacing) * 5);
@@ -29,14 +28,31 @@ const MarketInfoStyled = styled.div`
   flex-direction: column;
 `;
 
-const MarketTable = styled.table``;
+const MarketTable = styled.table`
+  color: #c8c8c8;
+  font-weight: var(--font-bold);
+  font-size: 22px;
+`;
+const MarketTR = styled.tr`
+  * {
+    background-color: #292a2c;
+    min-width: calc(var(--spacing) * 7);
+    padding: 0 calc(var(--spacing) * 1);
+    line-height: calc(var(--spacing) * 5);
+    margin: 1px;
+  }
+`;
+
 const MarketTHead = styled.thead``;
 const MarketTBody = styled.tbody``;
 
-const MarketTR = styled.tr``;
 const MarketTH = styled.th``;
-const LabelCell = styled.td``;
-const ValueCell = styled.td``;
+const LabelCell = styled.td`
+  opacity: 0.6;
+`;
+const ValueCell = styled.td`
+  color: #42b6f6;
+`;
 
 type MarketTableCellProps = {
   cell: MarketInfoElement;
@@ -49,7 +65,7 @@ const MarketTableCell = (props: MarketTableCellProps) => {
     case "LABEL":
       return <LabelCell>{cell.label}</LabelCell>;
     case "VALUE":
-      return <MarketTR>{cell.label}</MarketTR>;
+      return <ValueCell>{cell.label}</ValueCell>;
   }
 };
 
