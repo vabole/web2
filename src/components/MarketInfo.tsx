@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {
+  getMarketData2,
   HEADER,
   MarketInfoElement,
   MarketInfoType,
@@ -72,13 +73,13 @@ const MarketTableCell = (props: MarketTableCellProps) => {
  * @param marketInfo - массив из элементов MarketRow
  */
 type MarketInfoProps = {
-  marketInfo: MarketInfoType;
+  market: Safl.MarketElement;
 };
 export const MarketInfo = (props: MarketInfoProps) => {
-  const { marketInfo } = props;
-  if (marketInfo.length === 0) {
-    return null;
-  }
+  const { market } = props;
+  const marketInfo = getMarketData2(market);
+  if (!marketInfo || marketInfo.length === 0) return null;
+
   console.log(marketInfo);
   return (
     <MarketTable>

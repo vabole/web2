@@ -1,4 +1,5 @@
 import {handicap} from "./handicap";
+import {get1x2} from "./1x2";
 
 export const LABEL = 'LABEL';
 export const HEADER = 'HEADER';
@@ -8,7 +9,7 @@ export type CellTypeName =   typeof LABEL| typeof  HEADER| typeof VALUE;
 export type RowTypeName = typeof VALUE| typeof HEADER;
 
 type Base = {
-  label: string;
+  label?: string;
 };
 
 export type Label = {
@@ -34,7 +35,8 @@ export type MarketInfoType = MarketRow[];
 export const markets: {
   [marketName: string]: (marketElement: Safl.MarketElement) => MarketInfoType| null;
 } = {
-  Handicap: handicap
+    "1x2": get1x2,
+     Handicap: handicap
 };
 
 export const getMarketData2 = (market: Safl.MarketElement): MarketInfoType | null =>

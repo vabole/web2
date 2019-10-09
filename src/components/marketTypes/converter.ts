@@ -5,10 +5,18 @@ import {
   LABEL,
   Label,
   VALUE,
-  SelectionType
+  SelectionType,
+  MarketRow
 } from "./index";
 
-export const converter = (label: string, type: CellTypeName) => {
+export const converter = (
+  label: string | number | undefined,
+  type: CellTypeName
+) => {
+  if (typeof label === "undefined") {
+    label = "";
+  }
+
   const rv = {
     label,
     type
@@ -24,3 +32,8 @@ export const converter = (label: string, type: CellTypeName) => {
       throw new Error(`invalid type  ${type}`);
   }
 };
+
+export const getHeaderRow = (labels: string[]): MarketRow => ({
+  cells: labels.map(label => converter(label, HEADER)),
+  type: HEADER
+});
